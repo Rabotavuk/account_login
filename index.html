@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Аккаунт</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_the_United_Kingdom.svg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    .login-container {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    input[type="password"] {
+      padding: 10px;
+      margin: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007BFF;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+    .link {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #FFFF00;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Вход в аккаунт</h2>
+    <input type="password" id="password" placeholder="Введите пароль">
+    <button onclick="checkPassword()">Войти</button>
+    <div id="message" class="error-message"></div>
+    <div id="link" class="link" style="display:none;"></div>
+  </div>
+
+  <script>
+    // Массив с правильными паролями (10 паролей по 10 цифр)
+    const validPasswords = [
+      'G9889259891M', 'G9094444361M', 'G9871925421M', 'G7861010171M', 'G4032655551M',
+      'G9878881821M', 'G4072655551M', 'G0065530241M', 'G9889259891M', 'G9887277901M'
+    ];
+    // Массив для хранения использованных паролей
+    const usedPasswords = [];
+
+    function checkPassword() {
+      const password = document.getElementById('password').value;
+      const messageElement = document.getElementById('message');
+      const linkElement = document.getElementById('link');
+      
+      // Проверка, был ли пароль использован ранее
+      if (usedPasswords.includes(password)) {
+        messageElement.textContent = 'Этот пароль уже был использован. Пожалуйста, используйте другой.';
+        linkElement.style.display = 'none';
+        return;
+      }
+
+      // Проверка правильности пароля
+      if (validPasswords.includes(password)) {
+        // Ссылка для пользователя
+        const uniqueLink = 'https://infoworld.com.ua/seasonal_uk/';
+        linkElement.textContent = Поздравляем! Ссылка для вас: ${uniqueLink};
+        linkElement.style.display = 'block';
+
+        // Добавление пароля в список использованных
+        usedPasswords.push(password);
+        messageElement.textContent = '';
+      } else {
+        messageElement.textContent = 'Пароль неверный. Свяжитесь с администратором.';
+        linkElement.style.display = 'none';
+      }
+    }
+  </script>
+
+</body>
+</html>
